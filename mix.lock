@@ -1,0 +1,7 @@
+%{
+  "castore": {:hex, :castore, "0.1.18", "deb5b9ab02400561b6f5708f3e7660fc35ca2d51bfc6a940d2f513f89c2975fc", [:mix], [], "hexpm", "61bbaf6452b782ef80b33cdb45701afbcf0a918a45ebe7e73f1130d661e66a06"},
+  "mail": {:git, "https://github.com/DockYard/elixir-mail.git", "b5d4ab85491ee25d5a430801862eeca77fa1cf38", []},
+  "mail_parser": {:hex, :mail_parser, "0.4.0", "af9f10aed59b41a2f639f190bfb3c316688786b83cea7d88b75c315ff5fe6cff", [:mix], [{:rustler, ">= 0.0.0", [hex: :rustler, repo: "hexpm", optional: true]}, {:rustler_precompiled, "~> 0.5", [hex: :rustler_precompiled, repo: "hexpm", optional: false]}], "hexpm", "a45405062e86a890751dc4ae9b6dd7b002b2c80f3b81f50217601665f2ca18a5"},
+  "rustler_precompiled": {:hex, :rustler_precompiled, "0.5.2", "7619fff0309a012eac7441993da4f6e257022bd456449a366756696a9a18fb19", [:mix], [{:castore, "~> 0.1", [hex: :castore, repo: "hexpm", optional: false]}, {:rustler, "~> 0.23", [hex: :rustler, repo: "hexpm", optional: true]}], "hexpm", "4e3716fd7cf6fbb806a9ed2b1449c987cfe578b24e3deb3ca4b8645638cc644c"},
+  "unzip": {:hex, :unzip, "0.7.1", "b05a9bfb9775d77a773a1fd19767fcd5dadac45a9394ef7b76cab96164609213", [:mix], [], "hexpm", "c716122cfee2583f1cf2543575b28698dde40d3f68ef02dc453d04dc2171f431"},
+}
