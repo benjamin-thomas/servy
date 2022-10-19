@@ -45,6 +45,10 @@ defmodule Servy.Handler do
     route(%{conv | path: "/bears/#{id}"})
   end
 
+  def route(%Conv{method: "POST", path: "/bears", params: params} = conv) do
+    %{conv | status: 201, resp_body: "Created a #{params["type"]} bear named #{params["name"]}!"}
+  end
+
   # @pages_dir Path.expand("../../pages", __DIR__)
   def route(%Conv{method: "GET", path: "/pages" <> file} = conv) do
     # @pages_dir
@@ -205,6 +209,22 @@ Host: example.com
 User-Agent: ExampleBrowser/1.0
 Accept: */*
 
+"""
+
+response = Servy.Handler.handle(request)
+IO.puts(response)
+
+# ---
+
+request = """
+POST /bears HTTP/1.1
+Host: example.com
+User-Agent: ExampleBrowser/1.0
+Accept: */*
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 21
+
+name=Baloo&type=Brown
 """
 
 response = Servy.Handler.handle(request)
