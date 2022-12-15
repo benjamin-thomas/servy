@@ -37,4 +37,16 @@ defmodule Servy.Recurse do
   def triple_alt([h | t], acc) do
     triple_alt(t, [h * 3 | acc])
   end
+
+  defp do_map([], _, acc), do: Enum.reverse(acc)
+
+  defp do_map([h | t], f, acc) do
+    do_map(t, f, [f.(h) | acc])
+  end
+
+  # Recurse.map([1, 2, 3, 4, 5], &(&1 * 2))
+  # [2, 4, 6, 8, 10]
+  def map(lst, f) do
+    do_map(lst, f, [])
+  end
 end

@@ -7,6 +7,7 @@ defmodule Servy.Handler do
 
   alias Servy.FileHandler
   alias Servy.Conv
+  alias Servy.BearController
 
   @doc """
   ## Examples
@@ -34,19 +35,19 @@ defmodule Servy.Handler do
   end
 
   def route(%Conv{method: "GET", path: "/bears"} = conv) do
-    %{conv | status: 200, resp_body: "Teddy, Smokey, Paddington"}
+    BearController.index(conv)
   end
 
   def route(%Conv{method: "GET", path: "/bears/" <> id} = conv) do
-    %{conv | status: 200, resp_body: "Bear ##{id}"}
+    BearController.show(conv, id)
   end
 
-  def route(%Conv{method: "GET", path: "/bears?" <> id} = conv) do
+  def route(%Conv{method: "GET", path: "/bears?id=" <> id} = conv) do
     route(%{conv | path: "/bears/#{id}"})
   end
 
   def route(%Conv{method: "POST", path: "/bears", params: params} = conv) do
-    %{conv | status: 201, resp_body: "Created a #{params["type"]} bear named #{params["name"]}!"}
+    BearController.create(conv, params)
   end
 
   # @pages_dir Path.expand("../../pages", __DIR__)
@@ -80,7 +81,7 @@ defmodule Servy.Handler do
   # end
 
   def route(%Conv{method: "DELETE"} = conv) do
-    %{conv | status: 403, resp_body: "Denied!"}
+    BearController.destroy(conv)
   end
 
   def route(%Conv{path: path} = conv) do
@@ -99,6 +100,7 @@ defmodule Servy.Handler do
   end
 end
 
+# recompile();r Servy.Handler
 request = """
 GET /wild-things HTTP/1.1
 Host: example.com
