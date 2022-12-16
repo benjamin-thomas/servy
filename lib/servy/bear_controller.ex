@@ -1,30 +1,30 @@
 defmodule Servy.BearController do
   alias Servy.WildThings
   alias Servy.Bear
+  alias Servy.BearView
+  import Servy.View, only: [render: 3]
 
-  defp bear_item(bear) do
-    "<li>#{bear.name} - #{bear.type}</li>"
-  end
+  # @templates_path = Path.join("templates", file <> ".html")
 
   def index(conv) do
     # Both below are equivalent:
     #   &Bear.grizzly?(&1)
     #   &Bear.grizzly?/1
-    items =
+    bears =
       WildThings.list_bears()
-      |> Enum.filter(&Bear.grizzly?/1)
       |> Enum.sort(&Bear.order_by_name_asc/2)
-      |> Enum.map(fn b -> bear_item(b) end)
-      |> Enum.join()
 
-    %{conv | status: 200, resp_body: "<ul>#{items}</ul>"}
+    # render(conv, "index.eex", bears: bears)
+
+    # use a pre-compiled template function
+    %{conv | status: 200, resp_body: BearView.index(bears)}
   end
 
   def show(conv, id) do
     bear = WildThings.get_bear(id)
 
     if bear do
-      %{conv | status: 200, resp_body: "<h1>Bear #{bear.id}: #{bear.name}</h1>"}
+      render(conv, "show.eex", bear: bear)
     else
       %{conv | status: 404, resp_body: "Bear ##{id} does not exist!"}
     end
